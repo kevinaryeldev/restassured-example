@@ -1,21 +1,21 @@
-package io.github.alysoncampos.payloads.model.pessoa;
+package io.github.alysoncampos.example.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class PessoaModel {
+public class Pessoa {
 
     private String nome;
     private String dataNascimento;
     private String cpf;
     private String email;
 
-    public PessoaModel() {
+    public Pessoa() {
     }
 
-    public PessoaModel(String nome, String dataNascimento, String cpf, String email) {
+    public Pessoa(String nome, String dataNascimento, String cpf, String email) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;

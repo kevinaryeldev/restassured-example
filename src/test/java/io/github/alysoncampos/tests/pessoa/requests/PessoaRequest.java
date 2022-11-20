@@ -1,5 +1,6 @@
 package io.github.alysoncampos.tests.pessoa.requests;
 
+import io.github.alysoncampos.tests.auth.requests.AuthRequest;
 import io.github.alysoncampos.utils.Auth;
 import io.github.alysoncampos.utils.Utils;
 import io.github.alysoncampos.utils.Values;
@@ -10,14 +11,14 @@ import static io.restassured.RestAssured.*;
 
 public class PessoaRequest {
 
-
-    private String tokenAdmin = new Auth().autenticacaoAdmin();
+    private final String PATH_PESSOA = "/pessoa";
+    private String token = new Auth().autenticacao();
 
     public Response listar() {
         return given()
-                        .header(Values.AUTH, tokenAdmin)
+                    .header(Values.AUTHORIZATION, token)
                 .when()
-                        .get(Values.PATH_PESSOA);
+                    .get(PATH_PESSOA);
     }
 
     public Response cadastrar(String pessoa) {
@@ -25,18 +26,18 @@ public class PessoaRequest {
                 .log().all()
                 .contentType(ContentType.JSON)
                 .body(pessoa)
-                .header(Values.AUTH, tokenAdmin)
+                .header(Values.AUTHORIZATION, token)
                 .when()
-                .post(Values.PATH_PESSOA)
+                .post(PATH_PESSOA)
                 ;
     }
 
     public Response excluir(Integer idPessoa) {
         return given()
                 .pathParam("idPessoa", idPessoa)
-                .header(Values.AUTH, tokenAdmin)
+                .header(Values.AUTHORIZATION, token)
                 .when()
-                .delete(Values.PATH_PESSOA + "/{idPessoa}")
+                .delete(PATH_PESSOA + "/{idPessoa}")
                 ;
 
     }
