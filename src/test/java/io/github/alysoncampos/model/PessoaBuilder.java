@@ -1,6 +1,4 @@
-package io.github.alysoncampos.example.model;
-
-import io.github.alysoncampos.payloads.model.pessoa.PessoaModel;
+package io.github.alysoncampos.model;
 
 public class PessoaBuilder {
 

@@ -1,10 +1,8 @@
-package io.github.alysoncampos.example.model;
+package io.github.alysoncampos.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class Pessoa {
 
     private String nome;
@@ -20,5 +18,15 @@ public class Pessoa {
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa{" +
+                "nome='" + nome + '\'' +
+                ", dataNascimento='" + dataNascimento + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

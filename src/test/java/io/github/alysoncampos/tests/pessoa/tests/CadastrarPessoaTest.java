@@ -1,9 +1,7 @@
 package io.github.alysoncampos.tests.pessoa.tests;
 
-import com.google.gson.Gson;
-import io.github.alysoncampos.example.data.factory.PessoaDataFactory;
-import io.github.alysoncampos.payloads.model.PessoaPayload;
-import io.github.alysoncampos.payloads.model.pessoa.PessoaModel;
+import io.github.alysoncampos.data.factory.PessoaDataFactory;
+import io.github.alysoncampos.model.Pessoa;
 import io.github.alysoncampos.tests.base.tests.BaseTest;
 import io.github.alysoncampos.tests.pessoa.requests.PessoaRequest;
 import io.github.alysoncampos.utils.Utils;
@@ -18,19 +16,18 @@ import static org.hamcrest.Matchers.equalTo;
 public class CadastrarPessoaTest extends BaseTest {
 
     PessoaRequest pessoaRequest = new PessoaRequest();
-    PessoaDataFactory pessoaDataFactory = new PessoaDataFactory();
 
     @Test
     @Tag("todos")
     @Description("Deve cadastrar pessoa com sucesso")
     public void deveCadastrarPessoaComSucesso() {
-        String pessoa = PessoaPayload.pessoaValidaJson();
+        Pessoa pessoa = PessoaDataFactory.pesssoaValida();
 
-        Integer idPessoa = pessoaRequest.cadastrar(pessoa)
+        Integer idPessoa = pessoaRequest.cadastrar(Utils.convertPessoaToJson(pessoa))
                 .then()
                         .statusCode(HttpStatus.SC_OK)
-                        .body("nome", equalTo(Utils.convertJsonToObj(pessoa).getNome()))
-                        .body("cpf", equalTo(Utils.convertJsonToObj(pessoa).getCpf()))
+                        .body("nome", equalTo(pessoa.getNome()))
+                        .body("cpf", equalTo(pessoa.getCpf()))
                         .extract().path("idPessoa")
                 ;
 
@@ -42,24 +39,42 @@ public class CadastrarPessoaTest extends BaseTest {
 
     @Test
     @Tag("todos")
-    @Description("Deve cadastrar pessoa cpf em branco")
-    public void deveCadastrarPessoaCpfEmBranco() {
-        pessoaRequest.cadastrar(PessoaPayload.pessoaSemCpfJson())
+    @Description("Deve cadastrar pessoa nome em branco")
+    public void deveCadastrarPessoaNomeEmBranco() {
+        Pessoa pessoaSemNome = PessoaDataFactory.pessoaSemNome();
+
+        pessoaRequest.cadastrar(Utils.convertPessoaToJson(pessoaSemNome))
                 .then()
                     .log().all()
                     .statusCode(HttpStatus.SC_BAD_REQUEST)
-                ;
+                    .body(containsString("nome: must not be blank"))
+        ;
     }
 
     @Test
     @Tag("todos")
-    @Description("Deve cadastrar pessoa sem dados obrigatórios")
-    public void deveCadastrarPessoaSemDadosObrigatorios() {
-        pessoaRequest.cadastrar(PessoaPayload.pessoaSemDadosObrigatoriosJson())
+    @Description("Deve cadastrar pessoa data nascimento em branco")
+    public void deveCadastrarPessoaDataNascimentoEmBranco() {
+        Pessoa pessoaSemDataNascimento = PessoaDataFactory.pessoaSemDataNascimento();
+
+        pessoaRequest.cadastrar(Utils.convertPessoaToJson(pessoaSemDataNascimento))
                 .then()
+                    .log().all()
                     .statusCode(HttpStatus.SC_BAD_REQUEST)
-                    .body(containsString("nome: must not be blank"))
                     .body(containsString("dataNascimento: must not be null"))
+        ;
+    }
+
+    @Test
+    @Tag("todos")
+    @Description("Deve cadastrar pessoa cpf em branco")
+    public void deveCadastrarPessoaCpfEmBranco() {
+        Pessoa pessoaSemCpf = PessoaDataFactory.pessoaSemCpf();
+
+        pessoaRequest.cadastrar(Utils.convertPessoaToJson(pessoaSemCpf))
+                .then()
+                    .log().all()
+                    .statusCode(HttpStatus.SC_BAD_REQUEST)
                 ;
     }
 

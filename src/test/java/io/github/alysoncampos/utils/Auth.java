@@ -1,6 +1,5 @@
 package io.github.alysoncampos.utils;
 
-import io.github.alysoncampos.tests.base.tests.BaseTest;
 import io.restassured.http.ContentType;
 
 import static io.restassured.RestAssured.*;

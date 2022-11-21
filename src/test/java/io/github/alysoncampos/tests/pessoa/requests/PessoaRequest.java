@@ -1,8 +1,6 @@
 package io.github.alysoncampos.tests.pessoa.requests;
 
-import io.github.alysoncampos.tests.auth.requests.AuthRequest;
 import io.github.alysoncampos.utils.Auth;
-import io.github.alysoncampos.utils.Utils;
 import io.github.alysoncampos.utils.Values;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -19,6 +17,16 @@ public class PessoaRequest {
                     .header(Values.AUTHORIZATION, token)
                 .when()
                     .get(PATH_PESSOA);
+    }
+
+    public Response listarPorNome(String nome) {
+        return given()
+                    .log().all()
+                    .header(Values.AUTHORIZATION, token)
+                    .queryParam("nome", nome)
+                .when()
+                    .get(PATH_PESSOA + "/byname")
+                ;
     }
 
     public Response cadastrar(String pessoa) {

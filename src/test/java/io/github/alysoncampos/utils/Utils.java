@@ -2,7 +2,7 @@ package io.github.alysoncampos.utils;
 
 
 import com.google.gson.Gson;
-import io.github.alysoncampos.payloads.model.pessoa.PessoaModel;
+import io.github.alysoncampos.model.Pessoa;
 import net.datafaker.Faker;
 
 import java.util.Locale;
@@ -15,8 +15,12 @@ public class Utils {
         return "http://vemser-dbc.dbccompany.com.br:39000/vemser/dbc-pessoa-api";
     }
 
-    public static PessoaModel convertJsonToObj(String toJson) {
-        return new Gson().fromJson(toJson, PessoaModel.class);
+    public static String convertPessoaToJson(Pessoa pessoa) {
+        return new Gson().toJson(pessoa);
+    }
+
+    public static Pessoa convertJsonToPessoa(String toJson) {
+        return new Gson().fromJson(toJson, Pessoa.class);
     }
 
 }
