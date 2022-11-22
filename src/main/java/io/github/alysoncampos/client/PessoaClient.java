@@ -6,6 +6,8 @@ import io.github.alysoncampos.data.changeless.Values;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+import java.io.IOException;
+
 import static io.restassured.RestAssured.given;
 
 public class PessoaClient {

@@ -1,23 +1,29 @@
 package io.github.alysoncampos.utils;
 
+import com.google.gson.Gson;
+import io.github.alysoncampos.data.changeless.LoginData;
+import io.github.alysoncampos.model.Login;
 import io.restassured.http.ContentType;
 
 import static io.restassured.RestAssured.given;
 
 public class Auth {
 
-    private final String BASE_URL = "http://vemser-dbc.dbccompany.com.br:39000/vemser/dbc-pessoa-api/auth";
+    public String autenticacao(){
+        Login login = new Login();
 
-    public String autenticacao() {
+        login.setLogin(Manipulation.getProp().getProperty("prop.login"));
+        login.setSenha(Manipulation.getProp().getProperty("prop.senha"));
 
         return
                 given()
                     .contentType(ContentType.JSON)
-                    .body("{\"login\" : \"admin\", \"senha\" : \"123\"}")
+                    .body(new Gson().toJson(login))
                 .when()
-                    .post(BASE_URL)
+                    .post(LoginData.SERVICE)
                 .then()
                     .extract().asString()
                 ;
     }
+
 }
