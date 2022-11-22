@@ -5,7 +5,6 @@ import io.github.alysoncampos.model.PessoaBuilder;
 import io.github.alysoncampos.utils.Utils;
 import org.apache.commons.lang3.StringUtils;
 
-
 import java.text.SimpleDateFormat;
 
 public class PessoaDataFactory {
@@ -57,4 +56,5 @@ public class PessoaDataFactory {
 
         return pessoa;
     }
+
 }

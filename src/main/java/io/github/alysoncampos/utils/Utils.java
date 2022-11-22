@@ -1,6 +1,5 @@
 package io.github.alysoncampos.utils;
 
-
 import com.google.gson.Gson;
 import io.github.alysoncampos.model.Pessoa;
 import net.datafaker.Faker;
@@ -22,5 +21,4 @@ public class Utils {
     public static Pessoa convertJsonToPessoa(String toJson) {
         return new Gson().fromJson(toJson, Pessoa.class);
     }
-
 }

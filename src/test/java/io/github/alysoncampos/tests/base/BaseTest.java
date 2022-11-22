@@ -1,4 +1,4 @@
-package io.github.alysoncampos.tests.base.tests;
+package io.github.alysoncampos.tests.base;
 
 import io.github.alysoncampos.utils.Utils;
 import io.restassured.RestAssured;
