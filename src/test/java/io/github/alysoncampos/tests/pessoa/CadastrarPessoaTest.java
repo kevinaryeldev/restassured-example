@@ -25,6 +25,7 @@ public class CadastrarPessoaTest extends BaseTest {
 
         Integer idPessoa = pessoaClient.cadastrar(Utils.convertPessoaToJson(pessoa))
                 .then()
+                        .log().all()
                         .statusCode(HttpStatus.SC_OK)
                         .body("nome", equalTo(pessoa.getNome()))
                         .body("cpf", equalTo(pessoa.getCpf()))
